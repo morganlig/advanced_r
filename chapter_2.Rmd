@@ -1,0 +1,98 @@
+---
+title: "Chapter 2 Names and values"
+author: "Morgan Grovenburg, Retention Specialist"
+date: "3/23/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries, include= FALSE}
+# Install packages only once
+#install.packages("lobstr")
+
+library(lobstr)
+```
+
+
+## 2.1
+
+### Quiz
+
+#### 1. Given the following data frame, how do I create a new column called “3” that contains the sum of `1` and `2`? You may only use `$`, not `[[`. What makes `1`, `2`, and `3` challenging as variable names?
+
+```{r}
+df <- data.frame(runif(3), runif(3))
+names(df) <- c(1, 2)
+
+df$`3` <- df$`1` + df$`2`
+```
+
+#### 2. In the following code, how much memory does `y` occupy?
+
+```{r}
+x <- runif(1e6)
+y <- list(x, x, x)
+```
+
+
+
+#### 3. On which line does `a` get copied in the following example?
+
+```{r}
+a <- c(1, 5, 3, 2)
+b <- a
+b[[1]] <- 10
+```
+
+### Prerequisites
+
+```{r}
+library(lobstr)
+```
+
+## 2.2
+
+### 2.2.2 Exercises
+
+#### 1. Explain the relationship between `a`, `b`, `c` and `d` in the following code:
+
+```{r}
+a <- 1:10
+b <- a
+c <- b
+d <- 1:10
+
+obj_addr(a)
+obj_addr(b)
+obj_addr(c)
+obj_addr(d)
+```
+
+#### 2. The following code accesses the mean function in multiple ways. Do they all point to the same underlying function object? Verify this with `lobstr::obj_addr()`.
+
+```{r}
+lobstr::obj_addr(mean)
+lobstr::obj_addr(base::mean)
+lobstr::obj_addr(get("mean"))
+lobstr::obj_addr(evalq(mean))
+lobstr::obj_addr(match.fun("mean"))
+```
+
+
+
+```{r}
+x1 <- 1
+x2 <- 1
+obj_size(x1)
+obj_size(x1, x2)
+
+y1 <- "ABC"
+y2 <- "ABC"
+obj_size(y1)
+obj_size(y1, y2)
+
+```
+
